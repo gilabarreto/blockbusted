@@ -21,7 +21,7 @@ async function welcome() {
 
   console.log(`${chalk.bgBlue('HOW TO PLAY')}
   I am a proccess on your computer.
-  If you get any question wrong I will be ${chalk.bgRed('Terminate you!')}
+  If you get any question wrong I will ${chalk.bgRed('Terminate you!')}
   So get all the questions right...
 
   `);
@@ -68,7 +68,7 @@ async function handleAnswer(isCorrect) {
     spinner.success({ text: `That's correct. Nice work ${playerName}.` })
   } else {
     spinner.error({ text: `Game over ${playerName}. Hasta la vista baby!` });
-    proccess.exit(1);
+    process.exit(1);
   }
 }
 
@@ -80,6 +80,7 @@ function winner() {
 
   figlet(msg, (err, data) => {
     console.log(gradient.pastel.multiline(data));
+    process.exit(0);
   });
 }
 
