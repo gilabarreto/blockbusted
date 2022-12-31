@@ -76,7 +76,7 @@ await question1();
 
 function winner() {
   console.clear();
-  const msg = `Congrats , ${playerName} !\n $ 1 , 0 0 0 , 0 0 0`;
+  const msg = `Congrats , ${playerName} !`;
 
   figlet(msg, (err, data) => {
     console.log(gradient.pastel.multiline(data));
