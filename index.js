@@ -26,7 +26,6 @@ async function welcome() {
   So get all the questions right...
 
   `);
-
 }
 
 await welcome();
@@ -46,19 +45,22 @@ async function askName() {
 
 await askName();
 
-async function question1() {
+async function question() {
+
+  const id = Math.floor(Math.random() * 101) + 1;
   const answers = await inquirer.prompt({
-    name: 'question1',
+    name: 'question',
     type: 'list',
-    message: `It's only after we've lost everything that we're free to do anything.`,
+    message: data[id].quote,
     choices: [
-      'Fight Club',
-      'Titanic',
-      'Free Willy',
-      'Goonies',
-    ],
+      // data[id].movie,
+      "answer",
+      data[Math.floor(Math.random() * 101) + 1].movie,
+      data[Math.floor(Math.random() * 101) + 1].movie,
+      data[Math.floor(Math.random() * 101) + 1].movie,
+    ].sort(() => Math.random() - 0.5),
   });
-  return handleAnswer(answers.question1 == 'Fight Club');
+  return handleAnswer(answers.question == "answer");
 }
 
 async function handleAnswer(isCorrect) {
@@ -67,22 +69,24 @@ async function handleAnswer(isCorrect) {
 
   if (isCorrect) {
     spinner.success({ text: `That's correct. Nice work ${playerName}.` })
+    console.log("")
+    question()
   } else {
     spinner.error({ text: `Game over ${playerName}. Hasta la vista baby!` });
     process.exit(1);
   }
 }
 
-await question1();
+await question();
 
-function winner() {
-  console.clear();
-  const msg = `Congrats , ${playerName} !`;
+// function winner() {
+//   console.clear();
+//   const msg = `Congrats , ${playerName} !`;
 
-  figlet(msg, (err, data) => {
-    console.log(gradient.pastel.multiline(data));
-    process.exit(0);
-  });
-}
+//   figlet(msg, (err, data) => {
+//     console.log(gradient.pastel.multiline(data));
+//     process.exit(0);
+//   });
+// }
 
-await winner();
+// await winner();
