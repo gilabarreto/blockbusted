@@ -59,5 +59,17 @@ async function question1() {
       'Goonies',
     ],
   });
-  return answers.question_1 == 'Fight Club';
+  return handleAnswer(answers.question_1 == 'Fight Club');
+}
+
+async function handleAnswer(isCorrect) {
+  const spinner = createSpinner('Checking answer...').start();
+  await sleep();
+
+  if (isCorrect) {
+    spinner.success({ text: `That's correct. Nice work ${playerName}.` })
+  } else {
+    spinner.error({ text: `Game over ${playerName}. Hasta la vista baby!` });
+    procces.exit(1);
+  }
 }
