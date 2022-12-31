@@ -7,8 +7,6 @@ import chalkAnimation from 'chalk-animation';
 import figlet from 'figlet';
 import { createSpinner } from 'nanospinner';
 
-console.log(chalk.bgGreen('Hello World!'));
-
 let playerName;
 
 const sleep = (ms = 2000) => new Promise((res) => setTimeout(res, ms));
@@ -59,7 +57,7 @@ async function question1() {
       'Goonies',
     ],
   });
-  return handleAnswer(answers.question_1 == 'Fight Club');
+  return handleAnswer(answers.question1 == 'Fight Club');
 }
 
 async function handleAnswer(isCorrect) {
@@ -70,6 +68,19 @@ async function handleAnswer(isCorrect) {
     spinner.success({ text: `That's correct. Nice work ${playerName}.` })
   } else {
     spinner.error({ text: `Game over ${playerName}. Hasta la vista baby!` });
-    procces.exit(1);
+    proccess.exit(1);
   }
 }
+
+await question1();
+
+function winner() {
+  console.clear();
+  const msg = `Congrats , ${playerName} !\n $ 1 , 0 0 0 , 0 0 0`;
+
+  figlet(msg, (err, data) => {
+    console.log(gradient.pastel.multiline(data));
+  });
+}
+
+await winner();
