@@ -47,3 +47,17 @@ async function askName() {
 
 await askName();
 
+async function question1() {
+  const answers = await inquirer.prompt({
+    name: 'question1',
+    type: 'list',
+    message: `It's only after we've lost everything that we're free to do anything.`,
+    choices: [
+      'Fight Club',
+      'Titanic',
+      'Free Willy',
+      'Goonies',
+    ],
+  });
+  return answers.question_1 == 'Fight Club';
+}
