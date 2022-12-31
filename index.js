@@ -13,22 +13,26 @@ let playerName;
 const sleep = (ms = 2000) => new Promise((res) => setTimeout(res, ms));
 
 async function welcome() {
-  const rainbowTitle = chalkAnimation.rainbow(
-    'Are you a movie maniac? \n'
-  );
+
+  figlet(`Blockbusted`, (err, data) => {
+    console.log(gradient.pastel.multiline(data));
+  });
+
+  // const rainbowTitle = chalkAnimation.rainbow(
+  //   'Are you a movie maniac? \n'
+  // );
 
   await sleep();
-  rainbowTitle.stop();
+
+  // rainbowTitle.stop();
 
   console.log(`${chalk.bgBlue('HOW TO PLAY')}
-  I am a proccess on your computer.
+  I am a former Blockbusted employee.
   If you get any question wrong I will ${chalk.bgRed('Terminate you!')}
   So get all the questions right...
 
   `);
 }
-
-await welcome();
 
 async function askName() {
   const answers = await inquirer.prompt({
@@ -43,15 +47,13 @@ async function askName() {
   playerName = answers.player_name;
 }
 
-await askName();
-
 async function question() {
 
   const id = Math.floor(Math.random() * 101) + 1;
   const answers = await inquirer.prompt({
     name: 'question',
     type: 'list',
-    message: data[id].quote,
+    message: `Quote: \"${data[id].quote}\"`,
     choices: [
       // data[id].movie,
       "answer",
@@ -63,23 +65,34 @@ async function question() {
   return handleAnswer(answers.question == "answer");
 }
 
+let score = 0;
+
 async function handleAnswer(isCorrect) {
+
   const spinner = createSpinner('Checking answer...').start();
+
   await sleep();
 
   if (isCorrect) {
-    spinner.success({ text: `That's correct. Nice work ${playerName}.` })
-    console.log("")
+    spinner.success({ text: `That's correct ${playerName}. You got ${++score} out of 100. \n` })
     question()
   } else {
-    spinner.error({ text: `Game over ${playerName}. Hasta la vista baby!` });
+    // console.clear();
+    spinner.error({ text: `Game over ${playerName}. Hasta la vista baby! \n` });
+
+    await sleep();
+
+    await loser();
+
     process.exit(1);
   }
 }
 
+await welcome();
+await askName();
 await question();
 
-// function winner() {
+// async function winner() {
 //   console.clear();
 //   const msg = `Congrats , ${playerName} !`;
 
@@ -90,3 +103,12 @@ await question();
 // }
 
 // await winner();
+
+async function loser() {
+  console.clear();
+  const msg = `Game Over`;
+
+  figlet(msg, (err, data) => {
+    console.log(gradient.pastel.multiline(data));
+  });
+}
