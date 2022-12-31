@@ -32,3 +32,18 @@ async function welcome() {
 
 await welcome();
 
+async function askName() {
+  const answers = await inquirer.prompt({
+    name: 'player_name',
+    type: 'input',
+    message: 'What is your name?',
+    default() {
+      return 'Player';
+    },
+  });
+
+  playerName = answers.player_name;
+}
+
+await askName();
+
