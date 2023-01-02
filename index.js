@@ -65,6 +65,24 @@ async function question() {
   return handleAnswer(answers.question == "answer");
 }
 
+async function questionYear() {
+
+  const id = Math.floor(Math.random() * 101) + 1;
+  const answers = await inquirer.prompt({
+    name: 'question',
+    type: 'list',
+    message: `Which year was ${data[id].movie} released?`,
+    choices: [
+      // data[id].movie,
+      "answer",
+      data[Math.floor(Math.random() * 101) + 1].year,
+      data[Math.floor(Math.random() * 101) + 1].year,
+      data[Math.floor(Math.random() * 101) + 1].year,
+    ].sort(() => Math.random() - 0.5),
+  });
+  return handleAnswer(answers.question == "answer");
+}
+
 let score = 0;
 
 async function handleAnswer(isCorrect) {
@@ -75,13 +93,17 @@ async function handleAnswer(isCorrect) {
 
   if (isCorrect) {
     spinner.success({ text: `That's correct ${playerName}. You got ${++score} out of 100. \n` })
-    question()
+    if(score === 10) {
+
+      await sleep();
+      await winner();
+    }
+    questionYear()
   } else {
     // console.clear();
     spinner.error({ text: `Game over ${playerName}. Hasta la vista baby! \n` });
 
     await sleep();
-
     await loser();
 
     process.exit(1);
@@ -90,19 +112,18 @@ async function handleAnswer(isCorrect) {
 
 await welcome();
 await askName();
-await question();
+await questionYear();
 
-// async function winner() {
-//   console.clear();
-//   const msg = `Congrats , ${playerName} !`;
 
-//   figlet(msg, (err, data) => {
-//     console.log(gradient.pastel.multiline(data));
-//     process.exit(0);
-//   });
-// }
+async function winner() {
+  console.clear();
+  const msg = `Congrats , ${playerName} !`;
 
-// await winner();
+  figlet(msg, (err, data) => {
+    console.log(gradient.pastel.multiline(data));
+    process.exit(0);
+  });
+}
 
 async function loser() {
   console.clear();
