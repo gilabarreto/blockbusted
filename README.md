@@ -18,7 +18,6 @@ Blockbusted is a Javascript movie trivia game to be played on the Terminal.
 
 ```
 npx blockbusted
-npm i
 ```
 
 ## Final Product
