@@ -47,40 +47,60 @@ async function askName() {
   playerName = answers.player_name;
 }
 
-async function question() {
-
-  const id = Math.floor(Math.random() * 101) + 1;
-  const answers = await inquirer.prompt({
-    name: 'question',
-    type: 'list',
-    message: `Quote: \"${data[id].quote}\"`,
-    choices: [
-      // data[id].movie,
-      "answer",
-      data[Math.floor(Math.random() * 101) + 1].movie,
-      data[Math.floor(Math.random() * 101) + 1].movie,
-      data[Math.floor(Math.random() * 101) + 1].movie,
-    ].sort(() => Math.random() - 0.5),
-  });
-  return handleAnswer(answers.question == "answer");
+async function questionQuote() {
+  try {
+    const id = Math.floor(Math.random() * 101) + 1;
+    const answers = await inquirer.prompt({
+      name: 'question',
+      type: 'list',
+      message: `Quote: \"${data[id].quote}\"`,
+      choices: [
+        // data[id].movie,
+        "answer",
+        data[Math.floor(Math.random() * 101) + 1].movie,
+        data[Math.floor(Math.random() * 101) + 1].movie,
+        data[Math.floor(Math.random() * 101) + 1].movie,
+      ].sort(() => Math.random() - 0.5),
+    });
+    return handleAnswer(answers.question == "answer");
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 async function questionYear() {
+  try {
+    const id = Math.floor(Math.random() * 101) + 1;
+    const answers = await inquirer.prompt({
+      name: 'question',
+      type: 'list',
+      message: `Which year was ${data[id].movie} released?`,
+      choices: [
+        // data[id].movie,
+        "answer",
+        data[Math.floor(Math.random() * 101) + 1].year,
+        data[Math.floor(Math.random() * 101) + 1].year,
+        data[Math.floor(Math.random() * 101) + 1].year,
+      ].sort(() => Math.random() - 0.5),
+    });
+    return handleAnswer(answers.question == "answer");
+  } catch (err) {
+    console.log(err)
+  }
+}
 
-  const id = Math.floor(Math.random() * 101) + 1;
-  const answers = await inquirer.prompt({
-    name: 'question',
-    type: 'list',
-    message: `Which year was ${data[id].movie} released?`,
-    choices: [
-      // data[id].movie,
-      "answer",
-      data[Math.floor(Math.random() * 101) + 1].year,
-      data[Math.floor(Math.random() * 101) + 1].year,
-      data[Math.floor(Math.random() * 101) + 1].year,
-    ].sort(() => Math.random() - 0.5),
-  });
-  return handleAnswer(answers.question == "answer");
+async function askQuestion() {
+
+  const questions = [
+    questionQuote,
+    questionYear
+  ];
+
+  const randomIndex = Math.floor(Math.random() * questions.length);
+
+  const randomQuestion = questions[randomIndex];
+
+  await randomQuestion();
 }
 
 let score = 0;
@@ -92,15 +112,19 @@ async function handleAnswer(isCorrect) {
   await sleep();
 
   if (isCorrect) {
+
     spinner.success({ text: `That's correct ${playerName}. You got ${++score} out of 100. \n` })
-    if(score === 10) {
+
+    if (score === 10) {
 
       await sleep();
       await winner();
+
     }
-    questionYear()
+
+    await askQuestion()
+
   } else {
-    // console.clear();
     spinner.error({ text: `Game over ${playerName}. Hasta la vista baby! \n` });
 
     await sleep();
@@ -109,11 +133,6 @@ async function handleAnswer(isCorrect) {
     process.exit(1);
   }
 }
-
-await welcome();
-await askName();
-await questionYear();
-
 
 async function winner() {
   console.clear();
@@ -133,3 +152,7 @@ async function loser() {
     console.log(gradient.pastel.multiline(data));
   });
 }
+
+await welcome();
+await askName();
+await askQuestion();
