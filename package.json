@@ -1,6 +1,6 @@
 {
   "name": "blockbusted",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Blockbusted is a Javascript movie trivia game to be played on the Terminal.",
   "main": "index.js",
   "type": "module",
@@ -8,7 +8,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": "./index.js",
-  "keywords": ["game", "trivia", "movie", "javascript", "nodejs", "cli", "terminal"],
+  "keywords": [
+    "game",
+    "trivia",
+    "movie",
+    "javascript",
+    "nodejs",
+    "cli",
+    "terminal"
+  ],
   "author": "Victor Gila Barreto",
   "license": "ISC",
   "dependencies": {
