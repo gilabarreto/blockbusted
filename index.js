@@ -20,7 +20,7 @@ async function welcome() {
   await sleep();
 
   console.log(`${chalk.bgBlue('HOW TO PLAY')}
-  I am a former Blockbusted employee.
+  I am a former Blockbuster employee.
   If you get any question wrong I will ${chalk.bgRed('Terminate you!')}
   So get all the questions right...
 
@@ -104,7 +104,7 @@ async function handleAnswer(isCorrect) {
 
   if (isCorrect) {
 
-    spinner.success({ text: `That's correct ${playerName}. You got ${++score} out of 100. \n` })
+    spinner.success({ text: `That's correct ${playerName}. You got ${++score} out of 10. \n` })
 
     if (score === 10) {
 
