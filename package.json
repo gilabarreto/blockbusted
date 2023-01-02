@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": "./index.js",
-  "keywords": [],
+  "keywords": ["game", "trivia", "movie", "javascript", "nodejs", "cli", "terminal"],
   "author": "Victor Gila Barreto",
   "license": "ISC",
   "dependencies": {
