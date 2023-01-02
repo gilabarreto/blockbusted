@@ -3,7 +3,6 @@
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import gradient from 'gradient-string';
-import chalkAnimation from 'chalk-animation';
 import figlet from 'figlet';
 import { createSpinner } from 'nanospinner';
 import data from './quotes.js'
@@ -18,13 +17,7 @@ async function welcome() {
     console.log(gradient.pastel.multiline(data));
   });
 
-  // const rainbowTitle = chalkAnimation.rainbow(
-  //   'Are you a movie maniac? \n'
-  // );
-
   await sleep();
-
-  // rainbowTitle.stop();
 
   console.log(`${chalk.bgBlue('HOW TO PLAY')}
   I am a former Blockbusted employee.
@@ -55,14 +48,13 @@ async function questionQuote() {
       type: 'list',
       message: `Quote: \"${data[id].quote}\"`,
       choices: [
-        // data[id].movie,
-        "answer",
+        data[id].movie,
         data[Math.floor(Math.random() * 101) + 1].movie,
         data[Math.floor(Math.random() * 101) + 1].movie,
         data[Math.floor(Math.random() * 101) + 1].movie,
       ].sort(() => Math.random() - 0.5),
     });
-    return handleAnswer(answers.question == "answer");
+    return handleAnswer(answers.question == data[id].movie);
   } catch (err) {
     console.log(err)
   }
@@ -76,14 +68,13 @@ async function questionYear() {
       type: 'list',
       message: `Which year was ${data[id].movie} released?`,
       choices: [
-        // data[id].movie,
-        "answer",
+        data[id].year,
         data[Math.floor(Math.random() * 101) + 1].year,
         data[Math.floor(Math.random() * 101) + 1].year,
         data[Math.floor(Math.random() * 101) + 1].year,
       ].sort(() => Math.random() - 0.5),
     });
-    return handleAnswer(answers.question == "answer");
+    return handleAnswer(answers.question == data[id].year);
   } catch (err) {
     console.log(err)
   }
